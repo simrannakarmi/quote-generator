@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quote Generator</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h2>Quote</h2>
+        <button id="dark-mode-toggle">Dark Mode</button>
+      </header>
+      <div class="controls">
+        <div>
+          <label for="category">Category:</label>
+          <select id="category"></select>
+        </div>
+        <div class="font-size-controls">
+          <span>Font Size:</span>
+          <button id="decrease-font">-</button>
+          <button id="increase-font">+</button>
+        </div>
+      </div>
+      <div class="quote-box">
+        <blockquote id="quoteText">Loading...</blockquote>
+        <span id="author">Loading...</span>
+        <div class="buttons">
+          <button id="prev-button">Previous</button>
+          <button id="next-button">Next</button>
+          <button id="random-button">Random</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>Simran Nakarmi</footer>
+    <script src="quotes.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
