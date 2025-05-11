@@ -19,63 +19,73 @@ const sunSVG = `
   <svg width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#F8F8F8a)" fill="#F8F8F8"> <path d="M12 0a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1ZM4.929 3.515a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 0 0 1.414-1.414L4.93 3.515ZM1 11a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2H1ZM18 12a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM17.657 16.243a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 1 0 1.414-1.414l-2.828-2.828ZM7.757 17.657a1 1 0 1 0-1.414-1.414L3.515 19.07a1 1 0 1 0 1.414 1.414l2.828-2.828ZM20.485 4.929a1 1 0 0 0-1.414-1.414l-2.828 2.828a1 1 0 1 0 1.414 1.414l2.828-2.828ZM13 19a1 1 0 1 0-2 0v4a1 1 0 1 0 2 0v-4ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"></path> </g> <defs> <clipPath id="a"> <path fill="#F8F8F8ffffff" d="M0 0h24v24H0z"></path> </clipPath> </defs> </g></svg>
 `;
 
-let currentCategory = Object.keys(quotes)[0];
+let currentCategory = "";
 let currentIndex = 0;
 let fontSize = 22;
 
-// Category dropdown
-for (let category in quotes) {
-  const option = document.createElement("option");
-  option.value = category;
-  option.textContent = category[0].toUpperCase() + category.slice(1);
-  categorySelect.appendChild(option);
+if (typeof quotes === "undefined" || Object.keys(quotes).length === 0) {
+  quoteText.textContent = "No quotes available.";
+  author.textContent = "";
+  categorySelect.innerHTML = "<option disabled select>No categories</option>";
+} else {
+  currentCategory = Object.keys(quotes)[0];
+
+  // Category dropdown
+  for (let category in quotes) {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category[0].toUpperCase() + category.slice(1);
+    categorySelect.appendChild(option);
+  }
+
+  // Displays quote
+  function displayQuote() {
+    const quote = quotes[currentCategory][currentIndex];
+    quoteText.textContent = `"${quote.text}"`;
+    author.textContent = `- ${quote.author}`;
+  }
+
+  categorySelect.addEventListener("change", () => {
+    currentCategory = categorySelect.value;
+    currentIndex = 0;
+    displayQuote();
+  });
+
+  prevButton.addEventListener("click", () => {
+    currentIndex =
+      (currentIndex - 1 + quotes[currentCategory].length) %
+      quotes[currentCategory].length;
+    displayQuote();
+  });
+
+  nextButton.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % quotes[currentCategory].length;
+    displayQuote();
+  });
+
+  randomButton.addEventListener("click", () => {
+    const len = quotes[currentCategory].length;
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * len);
+    } while (randomIndex === currentIndex);
+
+    currentIndex = randomIndex;
+    displayQuote();
+  });
+
+  increaseFont.addEventListener("click", () => {
+    fontSize = Math.min(fontSize + 2, 40);
+    quoteText.style.fontSize = `${fontSize}px`;
+  });
+
+  decreaseFont.addEventListener("click", () => {
+    fontSize = Math.max(fontSize - 2, 12);
+    quoteText.style.fontSize = `${fontSize}px`;
+  });
+
+  displayQuote();
 }
-
-// Displays quote
-function displayQuote() {
-  const quote = quotes[currentCategory][currentIndex];
-  quoteText.textContent = `"${quote.text}"`;
-  author.textContent = `- ${quote.author}`;
-}
-
-categorySelect.addEventListener("change", () => {
-  currentCategory = categorySelect.value;
-  currentIndex = 0;
-  displayQuote();
-});
-
-prevButton.addEventListener("click", () => {
-  currentIndex =
-    (currentIndex - 1 + quotes[currentCategory].length) %
-    quotes[currentCategory].length;
-  displayQuote();
-});
-
-nextButton.addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % quotes[currentCategory].length;
-  displayQuote();
-});
-
-randomButton.addEventListener("click", () => {
-  const len = quotes[currentCategory].length;
-  let randomIndex;
-  do {
-    randomIndex = Math.floor(Math.random() * len);
-  } while (randomIndex === currentIndex);
-
-  currentIndex = randomIndex;
-  displayQuote();
-});
-
-increaseFont.addEventListener("click", () => {
-  fontSize = Math.min(fontSize + 2, 40);
-  quoteText.style.fontSize = `${fontSize}px`;
-});
-
-decreaseFont.addEventListener("click", () => {
-  fontSize = Math.max(fontSize - 2, 12);
-  quoteText.style.fontSize = `${fontSize}px`;
-});
 
 // darkmode
 darkModeToggle.addEventListener("click", () => {
@@ -89,5 +99,3 @@ darkModeToggle.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 });
-
-displayQuote();
