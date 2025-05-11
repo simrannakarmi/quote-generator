@@ -83,14 +83,18 @@ select:hover {
 .quote-box {
   background-color: #fff0f5;
   width: 100%;
-  /* max-width: 600px; */
+  min-height: 200px;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   margin-top: 40px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, font-size 0.3s, min-height 0.3s ease;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
+  
 }
 
 blockquote {
@@ -180,9 +184,15 @@ footer p {
     align-items: flex-start;
   }
 
-  .buttons-div,
-  .buttons-div div {
+  .buttons-div {
     flex-direction: column;
     align-items: center;
+  }
+  
+  .quote-box {
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
