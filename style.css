@@ -10,14 +10,18 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #fdf6ec;
+  background-color: #fff0f5;
   color: #4b4b4b;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.dark-mode {
   background-color: #1e1e1e;
   color: #eaeaea;
+}
+
+body.dark-mode .mode-icon {
+  background-color: #37333f;
 }
 
 body.dark-mode .quote-box {
@@ -27,6 +31,13 @@ body.dark-mode .quote-box {
 body.dark-mode #author {
   color: #c4b9d6;
 }
+
+body.dark-mode button:hover, 
+body.dark-mode .mode-icon:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15),
+    0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
 /* body.dark-mode button,
 body.dark-mode select {
   background-color: #66b2ff;
@@ -94,7 +105,6 @@ select:hover {
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  
 }
 
 blockquote {
@@ -120,11 +130,12 @@ button {
   font-size: 16px;
   align-items: center;
   cursor: pointer;
-  transition: backgroung-color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #b29dd9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .buttons-div {
@@ -145,29 +156,47 @@ button:hover {
   display: flex;
   gap: 4px;
 }
+
 .random-btn:hover {
   background-color: #b4a1f2;
 }
 
-.dark-mode-button {
-  /* background-color: #bcccd0 */
-  background: linear-gradient(to right, #d8d9db 0%, #939499 100%);
+button.dark-mode-button {
+  background: none;
+  border: none;
+  cursor: pointer;
   display: flex;
-  gap: 4px;
+  align-items: center;
+  justify-content: center;
 }
-.dark-mode-button:hover {
-  background: linear-gradient(to right, #c5c6c9 0%, #8f9095 100%);
+
+button.dark-mode-button:hover,
+body.dark-mode button.dark-mode-button:hover {
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 .mode-icon {
-  padding: 2px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #ede4e4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.mode-icon:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 footer {
   text-align: center;
   width: 100%;
-  padding: 20px;
-  font-size: 14px;
+  padding: 10px 20px;
+  font-size: 12px;
   background-color: #6e6e6e;
   color: #f1f1f1;
   margin-top: 30px;
@@ -188,7 +217,7 @@ footer p {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .quote-box {
     min-height: 280px;
     display: flex;
